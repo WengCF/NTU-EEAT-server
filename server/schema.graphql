@@ -1,0 +1,53 @@
+type Query {
+  restaurants(data: QueryRestaurantInput!): [Restaurant!]!
+}
+
+type Mutation {
+  createRestaurant(data: CreateRestaurantInput!): [Restaurant!]!
+  deleteRestaurant(data: DeleteRestaurantInput!): [Restaurant!]!
+}
+
+type Subscription {
+  restaurant(data: SubscriptionRestaurantInput!): SubscriptionPayload!
+}
+
+input QueryRestaurantInput {
+  style: String
+  region: String
+}
+
+input CreateRestaurantInput {
+  name: String!
+  style: String!
+  region: String!
+  score: String!
+}
+
+input DeleteRestaurantInput {
+  name: String!
+  style: String!
+  region: String!
+  score: String!
+}
+
+input SubscriptionRestaurantInput {
+  style: String!
+  region: String!
+}
+
+type Restaurant {
+  name: String!
+  style: String!
+  region: String!
+  score: String!
+}
+
+enum MutationType {
+  CREATED
+  DELETED
+}
+
+type SubscriptionPayload {
+  mutation: MutationType!
+  data: Restaurant!
+}
